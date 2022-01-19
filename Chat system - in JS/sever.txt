@@ -1,0 +1,61 @@
+﻿var express = require("express");
+var bodyParser = require("body-parser");
+var app = express();
+app.use( express.static("chat_system") );
+app.use( bodyParser.urlencoded( {extended:false} ) );
+
+var messages = new Array();
+var messages2 = new Array();
+var messages3 = new Array();
+
+app.all("/input", function(request, response) {
+	var msg = request.query.msg;
+	messages.push(msg);
+	console.log("received : "+msg);
+    response.send("OK");  
+});
+
+app.all("/input2", function(request, response) {
+	var msg = request.query.msg;
+	messages2.push(msg);
+	console.log("received : "+msg);
+    response.send("OK");  
+});
+
+app.all("/input3", function(request, response) {
+	var msg = request.query.msg;
+	messages3.push(msg);
+	console.log("received : "+msg);
+    response.send("OK");  
+});
+
+app.all("/getMessage", function(request, response) {
+	var count = request.query.count; 
+	var sendMsg = new Array();
+	if ( messages.length > count )
+		sendMsg = messages.slice(count);
+    response.send(JSON.stringify(sendMsg));  	
+	console.log("send messages: " + JSON.stringify(sendMsg));
+});
+
+app.all("/getMessage2", function(request, response) {
+	var count = request.query.count; 
+	var sendMsg = new Array();
+	if ( messages2.length > count )
+		sendMsg = messages2.slice(count);
+    response.send(JSON.stringify(sendMsg));  	
+	console.log("send messages: " + JSON.stringify(sendMsg));
+});
+
+app.all("/getMessage3", function(request, response) {
+	var count = request.query.count; 
+	var sendMsg = new Array();
+	if ( messages3.length > count )
+		sendMsg = messages3.slice(count);
+    response.send(JSON.stringify(sendMsg));  	
+	console.log("send messages: " + JSON.stringify(sendMsg));
+});
+
+app.listen(80, function() {
+   console.log('Server Running at http://127.0.0.1');
+});	      

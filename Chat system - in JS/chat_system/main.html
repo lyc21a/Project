@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+    <title>Chat main</title>
+    <link href="https://fonts.googleapis.com/css?family=Cute+Font&display=swap" rel="stylesheet">
+	<script>
+		var login = prompt("채팅에 사용할 닉네임을 입력해주세요","");
+		alert("입력되었습니다!");
+
+		 $(document).ready(function() {
+			 $('#welcome').text(login + " 님 환영합니다.");
+			 $('#welcome').css('color','#00D8FF');
+		});
+
+		sessionStorage.setItem('myTempDataKey',login);
+	</script>
+	<script language = "javascript">
+	 var old_content = "";
+
+	  function rollback(n)
+	  {
+		var obj = document.getElementById("targetDiv"+n);
+		obj.innerHTML = old_content;
+	  }
+
+		 var xhr = false;
+		if(window.ActiveXObject)
+		xhr = new ActiveXObject("Microsoft.XMLHTTP");
+		 else if(window.XMLHttpRequest)
+		xhr = new XMLHttpRequest();
+
+		function getData(dataSource, divID)
+		 {
+			if(xhr){
+				var obj = document.getElementById(divID);
+				xhr.open("GET",dataSource);
+				xhr.onreadystatechange = function()
+				{
+					if(xhr.readyState == 4 &&
+						xhr.status == 200){
+						old_content = obj.innerHTML;
+						obj.innerHTML = xhr.responseText;
+					}
+				}
+				xhr.send(null);
+			}
+		}
+	</script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cute Font', serif;
+			background-image: url('background.jpg');
+			background-size: 100%
+        }
+
+        li {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        img {
+            border: 0;
+        }
+    </style>
+    <style>
+        #main_header {
+            width: 960px;
+            margin: 0 auto;
+           
+            height: 160px;
+            position: relative;
+        }
+
+            #main_header > #title {
+                position: absolute;
+                left: 0px;
+                top:70px;
+            }
+
+		    #main_header > #main_gnb {
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+
+            #main_header > #main_lnb {
+                position: absolute;
+                right: 0;
+                bottom: 0px;
+            }
+    </style>
+    <style>
+        #content {
+            width: 960px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+            #content > #main_section {
+                width: 750px;
+                float: left;
+            }
+
+            #content > #main_aside {
+                width: 200px;
+                float: right;
+            }
+    </style>
+    <style>
+        #main_section > article.main_talk {
+            margin-bottom: 10px;
+            padding: 20px;
+            border: 1px solid #1BFA14;
+        }
+    </style>
+    <style>
+        section.chat_create {
+            overflow: hidden;
+        }
+
+            section.chat_create > label {
+                display: block;
+                float: left;
+                
+                width: 200px;
+                height: 30px;
+                line-height: 30px;
+                text-align: center;
+              
+                box-sizing: border-box;
+                border: 1px solid #1BFA14;
+               
+                background: #1BFA14;
+                color: white;
+            }
+
+        input:nth-of-type(1):checked ~ section.chat_create > label:nth-of-type(1) {
+            background: white;
+            color: #1BFA14;
+        }
+
+        input:nth-of-type(2):checked ~ section.chat_create > label:nth-of-type(2) {
+            background: white;
+            color: #1BFA14;
+        }
+    </style>
+    <style>
+        .connect {
+            float: left;
+        }
+    </style>
+    <style>
+        #main_footer {
+            width: 960px;
+            margin: 0 auto;
+            margin-bottom: 10px;
+           
+            box-sizing: border-box;
+            padding: 10px;
+            border: 1px solid #1BFA14;
+       
+            text-align: center;
+        }
+    </style>
+	<style type="text/css">
+	.chat1 {
+	-moz-box-shadow:inset 0px 1px 0px 0px #f9eca0;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #f9eca0;
+	box-shadow:inset 0px 1px 0px 0px #f9eca0;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #85e57f), color-stop(1, #b7f0b1) );
+	background:-moz-linear-gradient( center top, #85e57f 5%, #b7f0b1 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#85e57f', endColorstr='#b7f0b1');
+	background-color:#85e57f;
+	-webkit-border-top-left-radius:36px;
+	-moz-border-radius-topleft:36px;
+	border-top-left-radius:36px;
+	-webkit-border-top-right-radius:0px;
+	-moz-border-radius-topright:0px;
+	border-top-right-radius:0px;
+	-webkit-border-bottom-right-radius:36px;
+	-moz-border-radius-bottomright:36px;
+	border-bottom-right-radius:36px;
+	-webkit-border-bottom-left-radius:0px;
+	-moz-border-radius-bottomleft:0px;
+	border-bottom-left-radius:0px;
+	text-indent:0px;
+	display:inline-block;
+	color:#ffffff;
+	font-family:Cute Font;
+	font-size:25px;
+	font-weight:bold;
+	font-style:normal;
+	height:60px;
+	line-height:60px;
+	width:200px;
+	text-decoration:none;
+	text-align:center;
+	text-shadow:1px 1px 0px #ded17c;
+	}
+	.chat1:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #b7f0b1), color-stop(1, #85e57f) );
+	background:-moz-linear-gradient( center top, #b7f0b1 5%, #85e57f 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#b7f0b1', endColorstr='#85e57f');
+	background-color:#b7f0b1;
+	}
+	.chat1:active {
+	position:relative;
+	top:1px;
+	}
+	</style>
+	<style type="text/css">
+	.opdel {
+	-moz-box-shadow:inset 0px 1px 0px 0px #dcecfb;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #dcecfb;
+	box-shadow:inset 0px 1px 0px 0px #dcecfb;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #e4f7ba), color-stop(1, #cef279) );
+	background:-moz-linear-gradient( center top, #e4f7ba 5%, #cef279 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e4f7ba', endColorstr='#cef279');
+	background-color:#e4f7ba;
+	-webkit-border-top-left-radius:0px;
+	-moz-border-radius-topleft:0px;
+	border-top-left-radius:0px;
+	-webkit-border-top-right-radius:0px;
+	-moz-border-radius-topright:0px;
+	border-top-right-radius:0px;
+	-webkit-border-bottom-right-radius:0px;
+	-moz-border-radius-bottomright:0px;
+	border-bottom-right-radius:0px;
+	-webkit-border-bottom-left-radius:0px;
+	-moz-border-radius-bottomleft:0px;
+	border-bottom-left-radius:0px;
+	text-indent:0px;
+	border:1px solid #85e57f;
+	display:inline-block;
+	color:#ffffff;
+	font-family:Cute Font;
+	font-size:25px;
+	font-weight:bold;
+	font-style:normal;
+	height:40px;
+	line-height:40px;
+	width:85px;
+	text-decoration:none;
+	text-align:center;
+	text-shadow:1px 1px 0px #528ecc;
+	}
+	.opdel:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #cef279), color-stop(1, #e4f7ba) );
+	background:-moz-linear-gradient( center top, #cef279 5%, #e4f7ba 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#cef279', endColorstr='#e4f7ba');
+	background-color:#cef279;
+	}
+	.opdel:active {
+	position:relative;
+	top:1px;
+	}
+	</style>
+</head>
+<body>
+    <div id="main_header">
+        <div id="title">
+            <img src = "title.jpg" alt ="메인로고" width = "100" />
+        </div>
+		<nav id="main_gnb">
+            <h1 id='welcome'></h1>
+        </nav>
+    </div>
+    <div id="content">
+        <section id="main_section">
+		    <article class="main_talk">
+                    <h1> SKU TALK 채팅방 1</h1>
+                    <div id = "targetDiv1"><p>생성된 채팅방이 없습니다.</p></div>
+            </article>
+			<article class="main_talk">
+                    <h1> SKU TALK 채팅방 2</h1>
+                    <div id = "targetDiv2"><p>생성된 채팅방이 없습니다.</p></div>
+            </article>
+			<article class="main_talk">
+                    <h1> SKU TALK 채팅방 3</h1>
+                    <div id = "targetDiv3"><p>생성된 채팅방이 없습니다.</p></div>
+            </article>
+            </section>
+        <aside id="main_aside">
+            <section class="chat_create">
+                <label for="chat_list">채팅방 들어가기</label>
+            </section>
+            <div class="connect">
+               	<button class="chat1" onclick ="getData('new.xml','targetDiv1')">채팅방1 생성하기</button>
+			</div>
+			 <div class="connect">
+               	<button class="chat1" onclick ="getData('new2.xml','targetDiv2')">채팅방2 생성하기</button>
+			</div>
+			 <div class="connect">
+               	<button class="chat1" onclick ="getData('new3.xml','targetDiv3')">채팅방3 생성하기</button>
+			</div>
+	</div>
+    <footer id="main_footer">
+        <h3>SKU TALK</h3>
+        <address>컴퓨터과학과 이예찬, 조우형</address>
+    </footer>
+</body>
+</html>

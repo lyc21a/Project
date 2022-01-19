@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>  
+  <head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Cute+Font&display=swap" rel="stylesheet">
+    <title>Chatting2</title>
+	<style type="text/css">
+	.send {
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #1ddb16), color-stop(1, #1bfa14) );
+	background:-moz-linear-gradient( center top, #1ddb16 5%, #1bfa14 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#1ddb16', endColorstr='#1bfa14');
+	background-color:#1ddb16;
+	-webkit-border-top-left-radius:20px;
+	-moz-border-radius-topleft:20px;
+	border-top-left-radius:20px;
+	-webkit-border-top-right-radius:20px;
+	-moz-border-radius-topright:20px;
+	border-top-right-radius:20px;
+	-webkit-border-bottom-right-radius:20px;
+	-moz-border-radius-bottomright:20px;
+	border-bottom-right-radius:20px;
+	-webkit-border-bottom-left-radius:20px;
+	-moz-border-radius-bottomleft:20px;
+	border-bottom-left-radius:20px;
+	text-indent:0;
+	border:1px solid #ffffff;
+	display:inline-block;
+	color:#ffffff;
+	font-family:Arial Black;
+	font-size:15px;
+	font-weight:bold;
+	font-style:normal;
+	height:40px;
+	line-height:40px;
+	width:86px;
+	text-decoration:none;
+	text-align:center;
+	text-shadow:1px 1px 0px #1ddb16;
+	}
+	.send:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #1bfa14), color-stop(1, #1ddb16) );
+	background:-moz-linear-gradient( center top, #1bfa14 5%, #1ddb16 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#1bfa14', endColorstr='#1ddb16');
+	background-color:#1bfa14;
+	}.send:active {
+	position:relative;
+	top:1px;
+	}
+	</style>
+	<style>
+		body {
+			background-image: url('dotground.jpg');
+			}
+	</style>
+    <script> 
+	   var msg_count = 0;
+	   var myTextarea, myText;
+	   var nick = sessionStorage.getItem('myTempDataKey');
+
+       function sendMsg()  
+       {  
+		   var xhr = false;  
+			if (window.ActiveXObject) 
+				 xhr = new  ActiveXObject("Microsoft.XMLHTTP"); 
+			else if (window.XMLHttpRequest)  
+	             xhr = new XMLHttpRequest(); 
+            if(xhr) { 
+				 var msg = "/input2?msg=" + nick + ': ' + myText.value;  
+                 xhr.open("GET", msg);
+                 xhr.onreadystatechange = function()  
+                 {  
+                        if (xhr.readyState == 4 && xhr.status == 200) {  
+							  myTextarea.value += nick + ': ' + myText.value + "\n";
+							  msg_count++;
+                         }  
+                 }
+				 if( myText.value == "농구" ){
+					 window.open('https://basketball.frvr.com/ko/', 'Basketball', 'width = 300, height = 420', true);
+				 }
+                 xhr.send(null);  
+            }  
+       }
+
+	   function checkMessage()  
+       {  
+		   var xhr = false;  
+			if (window.ActiveXObject) 
+				 xhr = new  ActiveXObject("Microsoft.XMLHTTP"); 
+			else if (window.XMLHttpRequest)  
+	             xhr = new XMLHttpRequest(); 
+            if(xhr) { 
+				 var msg = "/getMessage2?count=" + msg_count;  
+                 xhr.open("GET", msg);
+                 xhr.onreadystatechange = function()  
+                 {  
+                        if (xhr.readyState == 4 && xhr.status == 200) {  
+							var msgs = JSON.parse(xhr.responseText);
+							for(var i = 0 ; i < msgs.length ; ++i )	
+							  myTextarea.value += msgs[i] + "\n";
+							  msg_count += msgs.length;
+                         }  
+                 }   
+                 xhr.send(null);  
+            }  
+       }
+
+	   window.onload = function() {
+			myTextarea = document.getElementById("myTextarea");  
+			myText  = document.getElementById("myText"); 
+			setInterval( function() {
+					checkMessage();
+				}, 1000);
+	   }
+     </script>
+	<style>
+	 #chat_main {
+		 text-align: center;
+		 top: 60px;
+		 }
+	
+   	 textarea {
+		resize: none;
+		padding: 12px 20px;
+		border: 4px solid #00D8FF;
+		border-radius: 1px;
+		background-color: #C6FFFF;
+		color: #FFA7A7;
+		font-weight: bold;
+		font-family: Cute Font;
+		font-size: 20px;
+		}	
+	</style>
+  </head>   
+  <body>
+	<div id = "chat_main">
+      <form> 
+		  <textarea id="myTextarea" rows="13" cols="36" style="overflow-y:auto"></textarea>
+		  <br />
+		  <input type="text" id="myText" placeholder="메세지를 입력해주세요.."></input>
+		  <input type="button" class="send" onclick="sendMsg()" value="SEND"></input>
+      </form>
+	</div>
+   </body>  
+</html>
